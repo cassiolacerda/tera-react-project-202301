@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../images/logo.svg";
 
 import AppLoading from "../organisms/AppLoading";
 
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+
 export default function Home() {
   const navigate = useNavigate();
 
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+
   const [users, setUsers] = useState([]);
-  const [currentUser, setCurrentUser] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -30,6 +33,7 @@ export default function Home() {
       <select
         onChange={(event) => setCurrentUser(event.target.value)}
         className="home__select-users"
+        defaultValue={currentUser}
       >
         <option value="">Selecione um usuário</option>
         {users
